@@ -1,0 +1,31 @@
+version: 2
+
+sources:
+  - name: game_analytics
+    database: projectvertigo
+    schema: game_analytics
+    tables:
+      - name: raw_user_metrics
+        description: "Raw user-level daily metrics"
+        columns:
+          - name: user_id
+            tests:
+              - not_null
+          - name: event_date
+            tests:
+              - not_null
+
+models:
+  - name: daily_metrics
+    description: "Aggregated daily metrics by date, country, and platform"
+    columns:
+      - name: event_date
+        description: "Date of activity"
+        tests:
+          - not_null
+      - name: dau
+        description: "Daily Active Users"
+        tests:
+          - not_null
+      - name: arpdau
+        description: "Average Revenue Per Daily Active User"
